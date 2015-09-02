@@ -27,17 +27,17 @@ class PurchaseRequest extends AbstractRequest
     /**
      * {@inheritdoc}
      */
+    public function getReturnUrl()
+    {
+        return $this->modifyUrl($this->getParameter('returnUrl'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getNotifyUrl()
     {
-        $url = Url::createFromUrl($this->getParameter('notifyUrl'));
-        $url->getQuery()->modify(array(
-            'mtid' => $this->getTransactionId(),
-            'subid' => $this->getSubId(),
-            'amount' => $this->getAmount(),
-            'currency' => $this->getCurrency(),
-        ));
-
-        return (string) $url;
+        return $this->modifyUrl($this->getParameter('notifyUrl'));
     }
 
     /**
@@ -490,6 +490,22 @@ class PurchaseRequest extends AbstractRequest
         }
 
         return $document->saveXML();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function modifyUrl($url)
+    {
+        $url = Url::createFromUrl($url);
+        $url->getQuery()->modify(array(
+            'mtid' => $this->getTransactionId(),
+            'subid' => $this->getSubId(),
+            'amount' => $this->getAmount(),
+            'currency' => $this->getCurrency(),
+        ));
+
+        return (string) $url;
     }
 
     /**

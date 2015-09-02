@@ -2,6 +2,7 @@
 namespace Omnipay\Paysafecard\Message;
 
 use Omnipay\Tests\TestCase;
+use Guzzle\Http\Client as HttpClient;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class CompletePurchaseRequestTest extends TestCase
@@ -12,13 +13,20 @@ class CompletePurchaseRequestTest extends TestCase
     {
         parent::setUp();
 
-        $httpResponse = $this->getMockHttpResponse('CompletePurchaseSuccess.txt');
+        $httpCompletePurchaseResponse = $this->getMockHttpResponse('CompletePurchaseSuccess.txt');
+        $httpFetchTransactionResponse = $this->getMockHttpResponse('FetchTransactionPending.txt');
 
-        $mockPlugin = new \Guzzle\Plugin\Mock\MockPlugin();
-        $mockPlugin->addResponse($httpResponse);
+        $mockCompletePurchasePlugin = new \Guzzle\Plugin\Mock\MockPlugin();
+        $mockCompletePurchasePlugin->addResponse($httpCompletePurchaseResponse);
 
-        $httpClient = $this->getHttpClient();
-        $httpClient->addSubscriber($mockPlugin);
+        $mockFetchTransactionPlugin = new \Guzzle\Plugin\Mock\MockPlugin();
+        $mockFetchTransactionPlugin->addResponse($httpFetchTransactionResponse);
+
+        $httpCompletePurchaseClient = new HttpClient();
+        $httpCompletePurchaseClient->addSubscriber($mockCompletePurchasePlugin);
+
+        $httpFetchTransactionClient = new HttpClient();
+        $httpFetchTransactionClient->addSubscriber($mockFetchTransactionPlugin);
 
         $httpRequest = new HttpRequest(array(
             'mtid' => 'TX9997888',
@@ -27,20 +35,45 @@ class CompletePurchaseRequestTest extends TestCase
             'currency' => 'EUR'
         ));
 
-        $this->request = new CompletePurchaseRequest($httpClient, $httpRequest);
+        $this->request = new CompletePurchaseRequest($httpCompletePurchaseClient, $httpRequest);
         $this->request->initialize(array(
             'username' => 'SOAP_USERNAME',
             'password' => 'oJ2rHLBVSbD5iGfT'
         ));
+
+        $fetchTransaction = new FetchTransactionRequest($httpFetchTransactionClient, new HttpRequest());
+        $this->request->setFetchTransactionRequest($fetchTransaction);
     }
 
     public function testExceptions()
     {
         try {
-            $request = new CompletePurchaseRequest($this->getHttpClient(), new HttpRequest());
+            $request = new CompletePurchaseRequest(new HttpClient(), new HttpRequest());
             $request->initialize(array(
                 'username' => 'SOAP_USERNAME',
                 'password' => 'oJ2rHLBVSbD5iGfT'
+            ))->getData();
+        } catch (\Exception $e) {
+            $this->assertEquals('Omnipay\Common\Exception\InvalidRequestException', get_class($e));
+        }
+
+        try {
+            $httpResponse = $this->getMockHttpResponse('FetchTransactionSuccess.txt');
+
+            $mockPlugin = new \Guzzle\Plugin\Mock\MockPlugin();
+            $mockPlugin->addResponse($httpResponse);
+
+            $httpClient = new HttpClient();
+            $httpClient->addSubscriber($mockPlugin);
+
+            $request = new CompletePurchaseRequest($httpClient, new HttpRequest());
+            $request->initialize(array(
+                'username' => 'SOAP_USERNAME',
+                'password' => 'oJ2rHLBVSbD5iGfT',
+                'transactionId' => 'TX9997888',
+                'SubId' => 'shop1',
+                'amount' => '1.00',
+                'currency' => 'EUR'
             ))->getData();
         } catch (\Exception $e) {
             $this->assertEquals('Omnipay\Common\Exception\InvalidRequestException', get_class($e));

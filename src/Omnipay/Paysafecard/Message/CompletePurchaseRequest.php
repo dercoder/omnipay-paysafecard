@@ -16,12 +16,21 @@ use Omnipay\Common\Exception\InvalidResponseException;
  */
 class CompletePurchaseRequest extends AbstractRequest
 {
+    protected $fetchTransaction;
+
     /**
      * {@inheritdoc}
      */
     protected function getMethod()
     {
         return 'executeDebit';
+    }
+
+    public function setFetchTransactionRequest(FetchTransactionRequest $request)
+    {
+        $this->fetchTransaction = $request;
+
+        return $this;
     }
 
     /**
@@ -33,18 +42,32 @@ class CompletePurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
+        if ($transactionId = $this->httpRequest->query->get('mtid')) {
+            $this->setTransactionId($transactionId);
+        }
+
+        if ($currency = $this->httpRequest->query->get('currency')) {
+            $this->setCurrency($currency);
+        }
+
+        if ($amount = $this->httpRequest->query->get('amount')) {
+            $this->setAmount($amount);
+        }
+
+        if ($subId = $this->httpRequest->query->get('subid')) {
+            $this->setSubId($subId);
+        }
+
         $this->validate(
             'username',
-            'password'
+            'password',
+            'transactionId',
+            'currency',
+            'amount'
         );
 
-        $transactionId = $this->httpRequest->query->get('mtid');
-        $currency = $this->httpRequest->query->get('currency');
-        $amount = $this->httpRequest->query->get('amount');
-        $subId = $this->httpRequest->query->get('subid', '');
-
-        if (!$transactionId || !$currency || !$amount) {
-            throw new InvalidRequestException('Missing query parameter');
+        if ($this->getDispositionState() !== 'S') {
+            throw new InvalidRequestException('Transaction state must be "Disposed"');
         }
 
         $document = new \DOMDocument('1.0', 'utf-8');
@@ -73,19 +96,19 @@ class CompletePurchaseRequest extends AbstractRequest
         );
 
         $debit->appendChild(
-            $document->createElement('urn:mtid', $transactionId)
+            $document->createElement('urn:mtid', $this->getTransactionId())
         );
 
         $debit->appendChild(
-            $document->createElement('urn:subId', $subId)
+            $document->createElement('urn:subId', $this->getSubId())
         );
 
         $debit->appendChild(
-            $document->createElement('urn:amount', $amount)
+            $document->createElement('urn:amount', $this->getAmount())
         );
 
         $debit->appendChild(
-            $document->createElement('urn:currency', $currency)
+            $document->createElement('urn:currency', $this->getCurrency())
         );
 
         $debit->appendChild(
@@ -93,6 +116,25 @@ class CompletePurchaseRequest extends AbstractRequest
         );
 
         return $document->saveXML();
+    }
+
+    protected function getDispositionState()
+    {
+        if (!$this->fetchTransaction) {
+            $this->fetchTransaction = new FetchTransactionRequest($this->httpClient, $this->httpRequest);
+        }
+
+        $response = $this->fetchTransaction->initialize(array(
+            'testMode' => $this->getTestMode(),
+            'username' => $this->getUsername(),
+            'password' => $this->getPassword(),
+            'subId' => $this->getSubId(),
+            'transactionId' => $this->getTransactionId(),
+            'currency' => $this->getCurrency(),
+            'amount' => $this->getAmount(),
+        ))->send();
+
+        return $response->getDispositionState();
     }
 
     /**

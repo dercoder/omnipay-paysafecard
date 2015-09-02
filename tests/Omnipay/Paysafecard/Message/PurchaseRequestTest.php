@@ -58,7 +58,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('shop1', (string) $request->subId);
         $this->assertSame('14.65', (string) $request->amount);
         $this->assertSame('EUR', (string) $request->currency);
-        $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Fsuccess', (string) $request->okUrl);
+        $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Fsuccess%3Fmtid%3DTX9997888%26subid%3Dshop1%26amount%3D14.65%26currency%3DEUR', (string) $request->okUrl);
         $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Ffailure', (string) $request->nokUrl);
         $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Fnotify%3Fmtid%3DTX9997888%26subid%3Dshop1%26amount%3D14.65%26currency%3DEUR', (string) $request->pnUrl);
         $this->assertSame('2568-B415rh_785', (string) $request->shopId);
