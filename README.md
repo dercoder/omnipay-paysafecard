@@ -3,6 +3,7 @@
 **Paysafecard driver for the Omnipay PHP payment processing library**
 
 [![Build Status](https://travis-ci.org/dercoder/omnipay-paysafecard.png?branch=master)](https://travis-ci.org/dercoder/omnipay-paysafecard)
+[![Coverage Status](https://coveralls.io/repos/dercoder/omnipay-paysafecard/badge.svg?branch=master&service=github)](https://coveralls.io/github/dercoder/omnipay-paysafecard?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/55e74aa7211c6b001f000619/badge.png)](https://www.versioneye.com/user/projects/55e74aa7211c6b001f000619)
 
 [![Latest Stable Version](https://poser.pugx.org/dercoder/omnipay-paysafecard/v/stable.png)](https://packagist.org/packages/dercoder/omnipay-paysafecard)
