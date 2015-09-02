@@ -20,7 +20,8 @@
         "league/url": "~3.0"
     },
     "require-dev": {
-        "omnipay/tests": "~2.0"
+        "omnipay/tests": "~2.0",
+        "satooshi/php-coveralls": "dev-master"
     },
     "extra": {
         "branch-alias": {
