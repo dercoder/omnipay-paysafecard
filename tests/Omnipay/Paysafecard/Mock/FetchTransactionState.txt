@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Date: Wed, 12 Aug 2015 12:00:00 GMT
+Content-Type: text/xml;charset=UTF-8
+Set-Cookie: TS036f01c9=012c3040cf2c0e94b44b9c98fb5cc371a856b67e8318446febba39668e5327f8c7de429b75; Path=/
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="urn:pscservice"><soap:Body><ns1:getSerialNumbersResponse><ns1:getSerialNumbersReturn><ns1:mtid>TX9997889</ns1:mtid><ns1:subId>shop1</ns1:subId><ns1:resultCode>0</ns1:resultCode><ns1:errorCode>0</ns1:errorCode><ns1:amount>1.0</ns1:amount><ns1:currency>EUR</ns1:currency><ns1:dispositionState>Y</ns1:dispositionState><ns1:serialNumbers>9922921184073520;1.00</ns1:serialNumbers></ns1:getSerialNumbersReturn></ns1:getSerialNumbersResponse></soap:Body></soap:Envelope>

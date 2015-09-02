@@ -1,0 +1,30 @@
+{
+    "name": "dercoder/omnipay-paysafecard",
+    "type": "library",
+    "description": "Paysafecard driver for the Omnipay payment processing library",
+    "keywords": [
+        "paysafecard",
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment"
+    ],
+    "homepage": "https://github.com/dercoder/omnipay-paysafecard",
+    "license": "MIT",
+    "autoload": {
+        "psr-0": { "Omnipay\\Paysafecard\\" : "src/" }
+    },
+    "require": {
+        "omnipay/common": "~2.3",
+        "league/url": "~3.0"
+    },
+    "require-dev": {
+        "omnipay/tests": "~2.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
