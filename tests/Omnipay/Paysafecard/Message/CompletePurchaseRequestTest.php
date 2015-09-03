@@ -103,4 +103,31 @@ class CompletePurchaseRequestTest extends TestCase
         $response = $this->request->sendData($data);
         $this->assertSame('Omnipay\Paysafecard\Message\CompletePurchaseResponse', get_class($response));
     }
+
+    public function testSendInvalidData()
+    {
+        $httpResponse = $this->getMockHttpResponse('FetchTransactionSuccess.txt');
+
+        $mockPlugin = new \Guzzle\Plugin\Mock\MockPlugin();
+        $mockPlugin->addResponse($httpResponse);
+
+        $httpClient = new HttpClient();
+        $httpClient->addSubscriber($mockPlugin);
+
+        $request = new CompletePurchaseRequest($httpClient, new HttpRequest());
+        $response = $request->initialize(array(
+            'username' => 'SOAP_USERNAME',
+            'password' => 'oJ2rHLBVSbD5iGfT',
+            'transactionId' => 'TX9997888',
+            'SubId' => 'shop1',
+            'amount' => '1.00',
+            'currency' => 'EUR'
+        ))->send();
+
+        $this->assertSame('Omnipay\Paysafecard\Message\FetchTransactionResponse', get_class($response));
+        $this->assertTrue($response->isSuccessful());
+        $this->assertSame(0, $response->getCode());
+        $this->assertSame('Consumed', $response->getMessage());
+        $this->assertSame('9922921184073520;1.00', $response->getSerialNumbers());
+    }
 }

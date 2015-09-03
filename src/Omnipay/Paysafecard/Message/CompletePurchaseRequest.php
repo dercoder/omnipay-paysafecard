@@ -66,10 +66,6 @@ class CompletePurchaseRequest extends AbstractRequest
             'amount'
         );
 
-        if ($this->getDispositionState() !== 'S') {
-            throw new InvalidRequestException('Transaction state must be "Disposed"');
-        }
-
         $document = new \DOMDocument('1.0', 'utf-8');
         $document->formatOutput = false;
         $document->createElement('soapenv:Header');
@@ -118,7 +114,10 @@ class CompletePurchaseRequest extends AbstractRequest
         return $document->saveXML();
     }
 
-    protected function getDispositionState()
+    /**
+     * {@inheritdoc}
+     */
+    public function sendData($data)
     {
         if (!$this->fetchTransaction) {
             $this->fetchTransaction = new FetchTransactionRequest($this->httpClient, $this->httpRequest);
@@ -134,7 +133,11 @@ class CompletePurchaseRequest extends AbstractRequest
             'amount' => $this->getAmount(),
         ))->send();
 
-        return $response->getDispositionState();
+        if ($response->getDispositionState() !== 'S') {
+            return $response;
+        }
+
+        return parent::sendData($data);
     }
 
     /**
