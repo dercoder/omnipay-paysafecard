@@ -16,17 +16,12 @@ class CompletePurchaseRequestTest extends TestCase
         $httpCompletePurchaseResponse = $this->getMockHttpResponse('CompletePurchaseSuccess.txt');
         $httpFetchTransactionResponse = $this->getMockHttpResponse('FetchTransactionPending.txt');
 
-        $mockCompletePurchasePlugin = new \Guzzle\Plugin\Mock\MockPlugin();
-        $mockCompletePurchasePlugin->addResponse($httpCompletePurchaseResponse);
+        $mockPlugin = new \Guzzle\Plugin\Mock\MockPlugin();
+        $mockPlugin->addResponse($httpFetchTransactionResponse);
+        $mockPlugin->addResponse($httpCompletePurchaseResponse);
 
-        $mockFetchTransactionPlugin = new \Guzzle\Plugin\Mock\MockPlugin();
-        $mockFetchTransactionPlugin->addResponse($httpFetchTransactionResponse);
-
-        $httpCompletePurchaseClient = new HttpClient();
-        $httpCompletePurchaseClient->addSubscriber($mockCompletePurchasePlugin);
-
-        $httpFetchTransactionClient = new HttpClient();
-        $httpFetchTransactionClient->addSubscriber($mockFetchTransactionPlugin);
+        $httpClient = new HttpClient();
+        $httpClient->addSubscriber($mockPlugin);
 
         $httpRequest = new HttpRequest(array(
             'mtid' => 'TX9997888',
@@ -35,14 +30,11 @@ class CompletePurchaseRequestTest extends TestCase
             'currency' => 'EUR'
         ));
 
-        $this->request = new CompletePurchaseRequest($httpCompletePurchaseClient, $httpRequest);
+        $this->request = new CompletePurchaseRequest($httpClient, $httpRequest);
         $this->request->initialize(array(
             'username' => 'SOAP_USERNAME',
             'password' => 'oJ2rHLBVSbD5iGfT'
         ));
-
-        $fetchTransaction = new FetchTransactionRequest($httpFetchTransactionClient, new HttpRequest());
-        $this->request->setFetchTransactionRequest($fetchTransaction);
     }
 
     public function testExceptions()

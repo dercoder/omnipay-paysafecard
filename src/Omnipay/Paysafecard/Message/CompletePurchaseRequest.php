@@ -26,13 +26,6 @@ class CompletePurchaseRequest extends AbstractRequest
         return 'executeDebit';
     }
 
-    public function setFetchTransactionRequest(FetchTransactionRequest $request)
-    {
-        $this->fetchTransaction = $request;
-
-        return $this;
-    }
-
     /**
      * Get the data for this request.
      *
@@ -119,11 +112,9 @@ class CompletePurchaseRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        if (!$this->fetchTransaction) {
-            $this->fetchTransaction = new FetchTransactionRequest($this->httpClient, $this->httpRequest);
-        }
+        $fetchTransaction = new FetchTransactionRequest($this->httpClient, $this->httpRequest);
 
-        $response = $this->fetchTransaction->initialize(array(
+        $response = $fetchTransaction->initialize(array(
             'testMode' => $this->getTestMode(),
             'username' => $this->getUsername(),
             'password' => $this->getPassword(),
