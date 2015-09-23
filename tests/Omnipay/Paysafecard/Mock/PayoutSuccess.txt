@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Date: Wed, 12 Aug 2015 12:00:00 GMT
+Content-Type: text/xml;charset=UTF-8
+Set-Cookie: TS036f01c9=012c3040cf2c0e94b44b9c98fb5cc371a856b67e8318446febba39668e5327f8c7de429b75; Path=/
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="urn:pscservice"><soap:Body><ns1:payoutResponse><ns1:PayoutReturn><ns1:ptid>TX9997889</ns1:ptid><ns1:requestedCurrency>EUR</ns1:requestedCurrency><ns1:requestedAmount>14.65</ns1:requestedAmount><ns1:payedInCurrency>EUR</ns1:payedInCurrency><ns1:payedAmount>14.65</ns1:payedAmount><ns1:validationOnly>false</ns1:validationOnly><ns1:resultCode>0</ns1:resultCode><ns1:errorCode>0</ns1:errorCode><ns1:errorCodeDescription></ns1:errorCodeDescription></ns1:PayoutReturn></ns1:payoutResponse></soap:Body></soap:Envelope>

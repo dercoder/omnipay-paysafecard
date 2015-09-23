@@ -55,7 +55,7 @@ class PurchaseResponseTest extends TestCase
         $this->assertSame(2, $response->getResultCode());
         $this->assertSame(4005, $response->getErrorCode());
         $this->assertSame(4005, $response->getCode());
-        $this->assertNotNull('Technical problem', $response->getMessage());
+        $this->assertSame('Technical problem', $response->getMessage());
         $this->assertSame('GET', $response->getRedirectMethod());
         $this->assertNull($response->getRedirectData());
         $this->assertSame('https://customer.cc.at.paysafecard.com/psccustomer/GetCustomerPanelServlet?amount=14.65&currency=EUR&mid=0&mtid=TX9997888&language=de&locale=de_de', $response->getRedirectUrl());

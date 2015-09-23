@@ -108,6 +108,16 @@ class Gateway extends AbstractGateway
     /**
      * @param array $parameters
      *
+     * @return \Omnipay\Paysafecard\Message\PayoutRequest
+     */
+    public function payout(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Paysafecard\Message\PayoutRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
      * @return \Omnipay\Paysafecard\Message\FetchTransactionRequest
      */
     public function fetchTransaction(array $parameters = array())
