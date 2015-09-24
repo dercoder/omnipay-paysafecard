@@ -24,6 +24,14 @@ class PayoutRequest extends AbstractRequest
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function getValidationOnly()
+    {
+        return 'false';
+    }
+
+    /**
      * Get the customer's email address.
      *
      * Related value to the customerIdType
@@ -88,39 +96,7 @@ class PayoutRequest extends AbstractRequest
     }
 
     /**
-     * Set validation only setting.
-     *
-     * Validate the payout without actually transferring the funds
-     * value true: Test the payout
-     * value false: to execute payout
-     *
-     * @return string validation only
-     */
-    public function getValidationOnly()
-    {
-        $value = $this->getParameter('validationOnly');
-
-        return $value === true ? 'true' : 'false';
-    }
-
-    /**
-     * Get validation only setting.
-     *
-     * Validate the payout without actually transferring the funds
-     * value true: Test the payout
-     * value false: to execute payout
-     *
-     * @param bool $value validation only
-     *
-     * @return self
-     */
-    public function setValidationOnly($value)
-    {
-        return $this->setParameter('validationOnly', $value);
-    }
-
-    /**
-     * Set UTC offset.
+     * Get UTC offset.
      *
      * The difference in hours and minutes from Coordinated Universal Time (UTC)
      * example: -03:00
@@ -135,7 +111,7 @@ class PayoutRequest extends AbstractRequest
     }
 
     /**
-     * Get UTC offset.
+     * Set UTC offset.
      *
      * The difference in hours and minutes from Coordinated Universal Time (UTC)
      * example: -03:00
@@ -227,7 +203,7 @@ class PayoutRequest extends AbstractRequest
     }
 
     /**
-     * Sets the customers's birthday.
+     * Set the customers's birthday.
      *
      * The date of birth of the payout customer in YYYY-MM-DD format
      * example: 1979-12-20

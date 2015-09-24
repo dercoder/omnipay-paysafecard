@@ -72,6 +72,62 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame('EUR', $request->getCurrency());
     }
 
+    public function testPayout()
+    {
+        $request = $this->gateway->payout(array(
+            'subId' => 'shop1',
+            'email' => 'user@example.com',
+            'firstName' => 'John',
+            'lastName' => 'Doe',
+            'birthday' => '30.12.1976',
+            'utcOffset' => '+02:00',
+            'clientMerchantId' => 'client123',
+            'transactionId' => 'TX9997888',
+            'amount' => '14.65',
+            'currency' => 'EUR'
+        ));
+
+        $this->assertSame('https://soatest.paysafecard.com/psc/services/PscService', $request->getEndpoint());
+        $this->assertSame('shop1', $request->getSubId());
+        $this->assertSame('user@example.com', $request->getEmail());
+        $this->assertSame('John', $request->getFirstName());
+        $this->assertSame('Doe', $request->getLastName());
+        $this->assertSame('1976-12-30', $request->getBirthday());
+        $this->assertSame('+02:00', $request->getUtcOffset());
+        $this->assertSame('client123', $request->getClientMerchantId());
+        $this->assertSame('TX9997888', $request->getTransactionId());
+        $this->assertSame('14.65', $request->getAmount());
+        $this->assertSame('EUR', $request->getCurrency());
+    }
+
+    public function testValidatePayout()
+    {
+        $request = $this->gateway->validatePayout(array(
+            'subId' => 'shop1',
+            'email' => 'user@example.com',
+            'firstName' => 'John',
+            'lastName' => 'Doe',
+            'birthday' => '30.12.1976',
+            'utcOffset' => '+02:00',
+            'clientMerchantId' => 'client123',
+            'transactionId' => 'TX9997888',
+            'amount' => '14.65',
+            'currency' => 'EUR'
+        ));
+
+        $this->assertSame('https://soatest.paysafecard.com/psc/services/PscService', $request->getEndpoint());
+        $this->assertSame('shop1', $request->getSubId());
+        $this->assertSame('user@example.com', $request->getEmail());
+        $this->assertSame('John', $request->getFirstName());
+        $this->assertSame('Doe', $request->getLastName());
+        $this->assertSame('1976-12-30', $request->getBirthday());
+        $this->assertSame('+02:00', $request->getUtcOffset());
+        $this->assertSame('client123', $request->getClientMerchantId());
+        $this->assertSame('TX9997888', $request->getTransactionId());
+        $this->assertSame('14.65', $request->getAmount());
+        $this->assertSame('EUR', $request->getCurrency());
+    }
+
     public function testFetchTransaction()
     {
         $request = $this->gateway->fetchTransaction(array(

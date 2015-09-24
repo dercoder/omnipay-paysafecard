@@ -3,7 +3,7 @@ namespace Omnipay\Paysafecard\Message;
 
 use Omnipay\Tests\TestCase;
 
-class PayoutRequestTest extends TestCase
+class ValidatePayoutRequestTest extends TestCase
 {
     private $request;
 
@@ -11,7 +11,7 @@ class PayoutRequestTest extends TestCase
     {
         parent::setUp();
 
-        $httpResponse = $this->getMockHttpResponse('PayoutSuccess.txt');
+        $httpResponse = $this->getMockHttpResponse('ValidatePayoutSuccess.txt');
 
         $mockPlugin = new \Guzzle\Plugin\Mock\MockPlugin();
         $mockPlugin->addResponse($httpResponse);
@@ -19,7 +19,7 @@ class PayoutRequestTest extends TestCase
         $httpClient = $this->getHttpClient();
         $httpClient->addSubscriber($mockPlugin);
 
-        $this->request = new PayoutRequest($httpClient, $this->getHttpRequest());
+        $this->request = new ValidatePayoutRequest($httpClient, $this->getHttpRequest());
         $this->request->initialize(array(
             'username' => 'SOAP_USERNAME',
             'password' => 'oJ2rHLBVSbD5iGfT',
@@ -55,7 +55,7 @@ class PayoutRequestTest extends TestCase
         $this->assertSame('client123', (string) $request->merchantClientId);
         $this->assertSame('EMAIL', (string) $request->customerIdType);
         $this->assertSame('user@example.com', (string) $request->customerId);
-        $this->assertSame('false', (string) $request->validationOnly);
+        $this->assertSame('true', (string) $request->validationOnly);
         $this->assertSame('+02:00', (string) $request->utcOffset);
         $this->assertSame('John', (string) $request->customerDetailsBasic->firstName);
         $this->assertSame('Doe', (string) $request->customerDetailsBasic->lastName);
@@ -66,7 +66,7 @@ class PayoutRequestTest extends TestCase
     {
         $data = $this->request->getData();
         $response = $this->request->sendData($data);
-        $this->assertSame('Omnipay\Paysafecard\Message\PayoutResponse', get_class($response));
+        $this->assertSame('Omnipay\Paysafecard\Message\ValidatePayoutResponse', get_class($response));
     }
 
 }

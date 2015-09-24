@@ -32,7 +32,7 @@ class PayoutResponse extends AbstractResponse
 
     public function isSuccessful()
     {
-        return $this->getErrorCode() === 0 && $this->getResultCode() === 0 && $this->getValidationOnly() === 'false';
+        return $this->getErrorCode() === 0 && $this->getResultCode() === 0 && $this->getValidationOnly() === false;
     }
 
     public function getCode()
@@ -64,6 +64,8 @@ class PayoutResponse extends AbstractResponse
 
     public function getValidationOnly()
     {
-        return (string) $this->data->validationOnly;
+        $validationOnly = (string) $this->data->validationOnly;
+
+        return $validationOnly === 'false' ? false : true;
     }
 }

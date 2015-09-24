@@ -3,7 +3,7 @@ namespace Omnipay\Paysafecard\Message;
 
 use Omnipay\Tests\TestCase;
 
-class PayoutResponseTest extends TestCase
+class ValidatePayoutResponseTest extends TestCase
 {
 
     private $request;
@@ -12,7 +12,7 @@ class PayoutResponseTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new PayoutRequest($this->getHttpClient(), $this->getHttpRequest());
+        $this->request = new ValidatePayoutRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize(array(
             'username' => 'SOAP_USERNAME',
             'password' => 'oJ2rHLBVSbD5iGfT',
@@ -41,8 +41,8 @@ class PayoutResponseTest extends TestCase
 
     public function testFailure()
     {
-        $httpResponse = $this->getMockHttpResponse('PayoutFailure.txt');
-        $response = new PayoutResponse($this->request, $httpResponse->xml());
+        $httpResponse = $this->getMockHttpResponse('ValidatePayoutFailure.txt');
+        $response = new ValidatePayoutResponse($this->request, $httpResponse->xml());
 
         $this->assertFalse($response->isSuccessful());
         $this->assertSame(1, $response->getResultCode());
@@ -52,13 +52,13 @@ class PayoutResponseTest extends TestCase
         $this->assertSame('TX9997889', $response->getTransactionId());
         $this->assertSame('14.65', $response->getAmount());
         $this->assertSame('EUR', $response->getCurrency());
-        $this->assertFalse($response->getValidationOnly());
+        $this->assertTrue($response->getValidationOnly());
     }
 
     public function testSuccess()
     {
-        $httpResponse = $this->getMockHttpResponse('PayoutSuccess.txt');
-        $response = new PayoutResponse($this->request, $httpResponse->xml());
+        $httpResponse = $this->getMockHttpResponse('ValidatePayoutSuccess.txt');
+        $response = new ValidatePayoutResponse($this->request, $httpResponse->xml());
 
         $this->assertTrue($response->isSuccessful());
         $this->assertSame(0, $response->getResultCode());
@@ -68,7 +68,7 @@ class PayoutResponseTest extends TestCase
         $this->assertSame('TX9997889', $response->getTransactionId());
         $this->assertSame('14.65', $response->getAmount());
         $this->assertSame('EUR', $response->getCurrency());
-        $this->assertFalse($response->getValidationOnly());
+        $this->assertTrue($response->getValidationOnly());
     }
 
 }
