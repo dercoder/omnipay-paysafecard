@@ -63,7 +63,7 @@ class CompletePurchaseRequestTest extends TestCase
                 'username' => 'SOAP_USERNAME',
                 'password' => 'oJ2rHLBVSbD5iGfT',
                 'transactionId' => 'TX9997888',
-                'SubId' => 'shop1',
+                'subId' => 'shop1',
                 'amount' => '1.00',
                 'currency' => 'EUR'
             ))->getData();
@@ -111,7 +111,7 @@ class CompletePurchaseRequestTest extends TestCase
             'username' => 'SOAP_USERNAME',
             'password' => 'oJ2rHLBVSbD5iGfT',
             'transactionId' => 'TX9997888',
-            'SubId' => 'shop1',
+            'subId' => 'shop1',
             'amount' => '1.00',
             'currency' => 'EUR'
         ))->send();
