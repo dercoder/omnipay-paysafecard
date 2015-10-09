@@ -12,8 +12,16 @@
     ],
     "homepage": "https://github.com/dercoder/omnipay-paysafecard",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Fedra",
+            "email": "alexander.fedra@gmail.com"
+        }
+    ],
     "autoload": {
-        "psr-0": { "Omnipay\\Paysafecard\\" : "src/" }
+        "psr-4": {
+            "Omnipay\\Paysafecard\\": "src/"
+        }
     },
     "require": {
         "omnipay/common": "~2.3",
