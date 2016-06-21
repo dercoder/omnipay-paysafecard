@@ -26,11 +26,11 @@ class Gateway extends AbstractGateway
      */
     public function getDefaultParameters()
     {
-        return array(
+        return [
             'username' => '',
             'password' => '',
             'testMode' => false,
-        );
+        ];
     }
 
     /**
@@ -90,7 +90,7 @@ class Gateway extends AbstractGateway
      *
      * @return \Omnipay\Paysafecard\Message\PurchaseRequest
      */
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paysafecard\Message\PurchaseRequest', $parameters);
     }
@@ -100,7 +100,7 @@ class Gateway extends AbstractGateway
      *
      * @return \Omnipay\Paysafecard\Message\CompletePurchaseRequest
      */
-    public function completePurchase(array $parameters = array())
+    public function completePurchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paysafecard\Message\CompletePurchaseRequest', $parameters);
     }
@@ -110,7 +110,7 @@ class Gateway extends AbstractGateway
      *
      * @return \Omnipay\Paysafecard\Message\PayoutRequest
      */
-    public function payout(array $parameters = array())
+    public function payout(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paysafecard\Message\PayoutRequest', $parameters);
     }
@@ -120,7 +120,7 @@ class Gateway extends AbstractGateway
      *
      * @return \Omnipay\Paysafecard\Message\ValidatePayoutRequest
      */
-    public function validatePayout(array $parameters = array())
+    public function validatePayout(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paysafecard\Message\ValidatePayoutRequest', $parameters);
     }
@@ -130,7 +130,7 @@ class Gateway extends AbstractGateway
      *
      * @return \Omnipay\Paysafecard\Message\FetchTransactionRequest
      */
-    public function fetchTransaction(array $parameters = array())
+    public function fetchTransaction(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paysafecard\Message\FetchTransactionRequest', $parameters);
     }

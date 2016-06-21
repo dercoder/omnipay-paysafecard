@@ -2,9 +2,9 @@
 
 namespace Omnipay\Paysafecard\Message;
 
-use Omnipay\Common\Message\RequestInterface;
-use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Exception\InvalidResponseException;
+use Omnipay\Common\Message\RedirectResponseInterface;
+use Omnipay\Common\Message\RequestInterface;
 
 /**
  * Paysafecard Purchase Response.
@@ -47,12 +47,12 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     public function getRedirectUrl()
     {
         $url = $this->request->getTestMode() ? $this->testRedirect : $this->liveRedirect;
-        $data = array(
-            'amount' => $this->request->getAmount(),
+        $data = [
+            'amount'   => $this->request->getAmount(),
             'currency' => $this->request->getCurrency(),
-            'mid' => $this->getMid(),
-            'mtid' => $this->getTransactionId(),
-        );
+            'mid'      => $this->getMid(),
+            'mtid'     => $this->getTransactionId(),
+        ];
 
         if ($language = $this->request->getLanguage()) {
             $data['language'] = $language;
@@ -72,7 +72,6 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function getRedirectData()
     {
-        return;
     }
 
     public function getSubId()

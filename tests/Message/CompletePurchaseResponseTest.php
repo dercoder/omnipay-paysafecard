@@ -1,11 +1,11 @@
 <?php
+
 namespace Omnipay\Paysafecard\Message;
 
 use Omnipay\Tests\TestCase;
 
 class CompletePurchaseResponseTest extends TestCase
 {
-
     private $request;
 
     public function setUp()
@@ -13,14 +13,14 @@ class CompletePurchaseResponseTest extends TestCase
         parent::setUp();
 
         $this->request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize(array(
-            'username' => 'SOAP_USERNAME',
-            'password' => 'oJ2rHLBVSbD5iGfT',
-            'subId' => 'shop1',
+        $this->request->initialize([
+            'username'      => 'SOAP_USERNAME',
+            'password'      => 'oJ2rHLBVSbD5iGfT',
+            'subId'         => 'shop1',
             'transactionId' => 'TX9997888',
-            'amount' => '1.00',
-            'currency' => 'EUR'
-        ));
+            'amount'        => '1.00',
+            'currency'      => 'EUR',
+        ]);
     }
 
     public function testException()
@@ -62,5 +62,4 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertSame('shop1', $response->getSubId());
         $this->assertSame('TX9997889', $response->getTransactionId());
     }
-
 }

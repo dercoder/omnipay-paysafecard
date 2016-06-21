@@ -1,8 +1,9 @@
 <?php
+
 namespace Omnipay\Paysafecard\Message;
 
-use Omnipay\Tests\TestCase;
 use Guzzle\Http\Client as HttpClient;
+use Omnipay\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class CompletePurchaseRequestTest extends TestCase
@@ -23,28 +24,28 @@ class CompletePurchaseRequestTest extends TestCase
         $httpClient = new HttpClient();
         $httpClient->addSubscriber($mockPlugin);
 
-        $httpRequest = new HttpRequest(array(
-            'mtid' => 'TX9997888',
-            'subid' => 'shop1',
-            'amount' => '1.00',
-            'currency' => 'EUR'
-        ));
+        $httpRequest = new HttpRequest([
+            'mtid'     => 'TX9997888',
+            'subid'    => 'shop1',
+            'amount'   => '1.00',
+            'currency' => 'EUR',
+        ]);
 
         $this->request = new CompletePurchaseRequest($httpClient, $httpRequest);
-        $this->request->initialize(array(
+        $this->request->initialize([
             'username' => 'SOAP_USERNAME',
-            'password' => 'oJ2rHLBVSbD5iGfT'
-        ));
+            'password' => 'oJ2rHLBVSbD5iGfT',
+        ]);
     }
 
     public function testExceptions()
     {
         try {
             $request = new CompletePurchaseRequest(new HttpClient(), new HttpRequest());
-            $request->initialize(array(
+            $request->initialize([
                 'username' => 'SOAP_USERNAME',
-                'password' => 'oJ2rHLBVSbD5iGfT'
-            ))->getData();
+                'password' => 'oJ2rHLBVSbD5iGfT',
+            ])->getData();
         } catch (\Exception $e) {
             $this->assertEquals('Omnipay\Common\Exception\InvalidRequestException', get_class($e));
         }
@@ -59,14 +60,14 @@ class CompletePurchaseRequestTest extends TestCase
             $httpClient->addSubscriber($mockPlugin);
 
             $request = new CompletePurchaseRequest($httpClient, new HttpRequest());
-            $request->initialize(array(
-                'username' => 'SOAP_USERNAME',
-                'password' => 'oJ2rHLBVSbD5iGfT',
+            $request->initialize([
+                'username'      => 'SOAP_USERNAME',
+                'password'      => 'oJ2rHLBVSbD5iGfT',
                 'transactionId' => 'TX9997888',
-                'subId' => 'shop1',
-                'amount' => '1.00',
-                'currency' => 'EUR'
-            ))->getData();
+                'subId'         => 'shop1',
+                'amount'        => '1.00',
+                'currency'      => 'EUR',
+            ])->getData();
         } catch (\Exception $e) {
             $this->assertEquals('Omnipay\Common\Exception\InvalidRequestException', get_class($e));
         }
@@ -107,14 +108,14 @@ class CompletePurchaseRequestTest extends TestCase
         $httpClient->addSubscriber($mockPlugin);
 
         $request = new CompletePurchaseRequest($httpClient, new HttpRequest());
-        $response = $request->initialize(array(
-            'username' => 'SOAP_USERNAME',
-            'password' => 'oJ2rHLBVSbD5iGfT',
+        $response = $request->initialize([
+            'username'      => 'SOAP_USERNAME',
+            'password'      => 'oJ2rHLBVSbD5iGfT',
             'transactionId' => 'TX9997888',
-            'subId' => 'shop1',
-            'amount' => '1.00',
-            'currency' => 'EUR'
-        ))->send();
+            'subId'         => 'shop1',
+            'amount'        => '1.00',
+            'currency'      => 'EUR',
+        ])->send();
 
         $this->assertSame('Omnipay\Paysafecard\Message\FetchTransactionResponse', get_class($response));
         $this->assertTrue($response->isSuccessful());

@@ -1,11 +1,11 @@
 <?php
+
 namespace Omnipay\Paysafecard\Message;
 
 use Omnipay\Tests\TestCase;
 
 class PurchaseResponseTest extends TestCase
 {
-
     private $request;
 
     public function setUp()
@@ -13,26 +13,26 @@ class PurchaseResponseTest extends TestCase
         parent::setUp();
 
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize(array(
-            'username' => 'SOAP_USERNAME',
-            'password' => 'oJ2rHLBVSbD5iGfT',
-            'clientIp' => '127.0.0.1',
-            'returnUrl' => 'https://www.foodstore.com/success',
-            'cancelUrl' => 'https://www.foodstore.com/failure',
-            'notifyUrl' => 'https://www.foodstore.com/notify',
-            'subId' => 'shop1',
-            'shopId' => '2568-B415rh_785',
-            'shopLabel' => 'www.foodstore.com',
-            'countryRestrictions' => array('FR', 'ES'),
-            'minAgeRestriction' => 18,
+        $this->request->initialize([
+            'username'               => 'SOAP_USERNAME',
+            'password'               => 'oJ2rHLBVSbD5iGfT',
+            'clientIp'               => '127.0.0.1',
+            'returnUrl'              => 'https://www.foodstore.com/success',
+            'cancelUrl'              => 'https://www.foodstore.com/failure',
+            'notifyUrl'              => 'https://www.foodstore.com/notify',
+            'subId'                  => 'shop1',
+            'shopId'                 => '2568-B415rh_785',
+            'shopLabel'              => 'www.foodstore.com',
+            'countryRestrictions'    => ['FR', 'ES'],
+            'minAgeRestriction'      => 18,
             'minKycLevelRestriction' => 'SIMPLE',
-            'language' => 'de',
-            'locale' => 'de_de',
-            'clientMerchantId' => 'client123',
-            'transactionId' => 'TX9997888',
-            'amount' => '14.65',
-            'currency' => 'EUR'
-        ));
+            'language'               => 'de',
+            'locale'                 => 'de_de',
+            'clientMerchantId'       => 'client123',
+            'transactionId'          => 'TX9997888',
+            'amount'                 => '14.65',
+            'currency'               => 'EUR',
+        ]);
     }
 
     public function testException()
@@ -82,5 +82,4 @@ class PurchaseResponseTest extends TestCase
         $this->assertSame(1000001234, $response->getMid());
         $this->assertSame('TX9997889', $response->getTransactionId());
     }
-
 }

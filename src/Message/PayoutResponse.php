@@ -2,8 +2,8 @@
 
 namespace Omnipay\Paysafecard\Message;
 
-use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Exception\InvalidResponseException;
+use Omnipay\Common\Message\RequestInterface;
 
 /**
  * Paysafecard Purchase Response.

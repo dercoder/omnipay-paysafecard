@@ -1,11 +1,11 @@
 <?php
+
 namespace Omnipay\Paysafecard\Message;
 
 use Omnipay\Tests\TestCase;
 
 class ValidatePayoutResponseTest extends TestCase
 {
-
     private $request;
 
     public function setUp()
@@ -13,20 +13,20 @@ class ValidatePayoutResponseTest extends TestCase
         parent::setUp();
 
         $this->request = new ValidatePayoutRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize(array(
-            'username' => 'SOAP_USERNAME',
-            'password' => 'oJ2rHLBVSbD5iGfT',
-            'subId' => 'shop1',
-            'email' => 'user@example.com',
-            'firstName' => 'John',
-            'lastName' => 'Doe',
-            'birthday' => '30.12.1976',
-            'utcOffset' => '+02:00',
+        $this->request->initialize([
+            'username'         => 'SOAP_USERNAME',
+            'password'         => 'oJ2rHLBVSbD5iGfT',
+            'subId'            => 'shop1',
+            'email'            => 'user@example.com',
+            'firstName'        => 'John',
+            'lastName'         => 'Doe',
+            'birthday'         => '30.12.1976',
+            'utcOffset'        => '+02:00',
             'clientMerchantId' => 'client123',
-            'transactionId' => 'TX9997889',
-            'amount' => '14.65',
-            'currency' => 'EUR'
-        ));
+            'transactionId'    => 'TX9997889',
+            'amount'           => '14.65',
+            'currency'         => 'EUR',
+        ]);
     }
 
     public function testException()
@@ -70,5 +70,4 @@ class ValidatePayoutResponseTest extends TestCase
         $this->assertSame('EUR', $response->getCurrency());
         $this->assertTrue($response->getValidationOnly());
     }
-
 }

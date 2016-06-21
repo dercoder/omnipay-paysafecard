@@ -84,9 +84,9 @@ class FetchTransactionRequest extends AbstractRequest
      *
      * @param \SimpleXMLElement $xml
      *
-     * @return PurchaseResponse
-     *
      * @throws InvalidResponseException
+     *
+     * @return PurchaseResponse
      */
     protected function createResponse(\SimpleXMLElement $xml)
     {
