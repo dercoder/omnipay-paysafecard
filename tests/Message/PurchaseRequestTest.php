@@ -24,9 +24,9 @@ class PurchaseRequestTest extends TestCase
             'username' => 'SOAP_USERNAME',
             'password' => 'oJ2rHLBVSbD5iGfT',
             'clientIp' => '127.0.0.1',
-            'returnUrl' => 'https://www.foodstore.com/success',
-            'cancelUrl' => 'https://www.foodstore.com/failure',
-            'notifyUrl' => 'https://www.foodstore.com/notify',
+            'returnUrl' => 'https://www.foodstore.com/success.html?parameter=somedata',
+            'cancelUrl' => 'https://www.foodstore.com/failure.html?parameter=somedata',
+            'notifyUrl' => 'https://www.foodstore.com/notify.html?parameter=somedata',
             'subId' => 'shop1',
             'shopId' => '2568-B415rh_785',
             'shopLabel' => 'www.foodstore.com',
@@ -58,9 +58,9 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('shop1', (string) $request->subId);
         $this->assertSame('14.65', (string) $request->amount);
         $this->assertSame('EUR', (string) $request->currency);
-        $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Fsuccess%3Fmtid%3DTX9997888%26subid%3Dshop1%26amount%3D14.65%26currency%3DEUR', (string) $request->okUrl);
-        $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Ffailure', (string) $request->nokUrl);
-        $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Fnotify%3Fmtid%3DTX9997888%26subid%3Dshop1%26amount%3D14.65%26currency%3DEUR', (string) $request->pnUrl);
+        $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Fsuccess.html%3Fparameter%3Dsomedata%26mtid%3DTX9997888%26subid%3Dshop1%26amount%3D14.65%26currency%3DEUR', (string) $request->okUrl);
+        $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Ffailure.html%3Fparameter%3Dsomedata', (string) $request->nokUrl);
+        $this->assertSame('https%3A%2F%2Fwww.foodstore.com%2Fnotify.html%3Fparameter%3Dsomedata%26mtid%3DTX9997888%26subid%3Dshop1%26amount%3D14.65%26currency%3DEUR', (string) $request->pnUrl);
         $this->assertSame('2568-B415rh_785', (string) $request->shopId);
         $this->assertSame('www.foodstore.com', (string) $request->shopLabel);
         $this->assertSame('client123', (string) $request->merchantclientid);
