@@ -25,9 +25,9 @@ class ValidatePayoutRequest extends PayoutRequest
      *
      * @param \SimpleXMLElement $xml
      *
-     * @return ValidatePayoutResponse
-     *
      * @throws InvalidResponseException
+     *
+     * @return ValidatePayoutResponse
      */
     protected function createResponse(\SimpleXMLElement $xml)
     {

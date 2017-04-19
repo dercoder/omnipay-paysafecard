@@ -498,12 +498,12 @@ class PurchaseRequest extends AbstractRequest
     protected function modifyUrl($url)
     {
         $url = Url::createFromUrl($url);
-        $url->getQuery()->modify(array(
-            'mtid' => $this->getTransactionId(),
-            'subid' => $this->getSubId(),
-            'amount' => $this->getAmount(),
+        $url->getQuery()->modify([
+            'mtid'     => $this->getTransactionId(),
+            'subid'    => $this->getSubId(),
+            'amount'   => $this->getAmount(),
             'currency' => $this->getCurrency(),
-        ));
+        ]);
 
         return (string) $url;
     }
@@ -513,9 +513,9 @@ class PurchaseRequest extends AbstractRequest
      *
      * @param \SimpleXMLElement $xml
      *
-     * @return PurchaseResponse
-     *
      * @throws InvalidResponseException
+     *
+     * @return PurchaseResponse
      */
     protected function createResponse(\SimpleXMLElement $xml)
     {

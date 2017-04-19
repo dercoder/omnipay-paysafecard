@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\Paysafecard\Message;
 
 use Omnipay\Tests\TestCase;
@@ -20,20 +21,20 @@ class ValidatePayoutRequestTest extends TestCase
         $httpClient->addSubscriber($mockPlugin);
 
         $this->request = new ValidatePayoutRequest($httpClient, $this->getHttpRequest());
-        $this->request->initialize(array(
-            'username' => 'SOAP_USERNAME',
-            'password' => 'oJ2rHLBVSbD5iGfT',
-            'subId' => 'shop1',
-            'email' => 'user@example.com',
-            'firstName' => 'John',
-            'lastName' => 'Doe',
-            'birthday' => '30.12.1976',
-            'utcOffset' => '+02:00',
+        $this->request->initialize([
+            'username'         => 'SOAP_USERNAME',
+            'password'         => 'oJ2rHLBVSbD5iGfT',
+            'subId'            => 'shop1',
+            'email'            => 'user@example.com',
+            'firstName'        => 'John',
+            'lastName'         => 'Doe',
+            'birthday'         => '30.12.1976',
+            'utcOffset'        => '+02:00',
             'clientMerchantId' => 'client123',
-            'transactionId' => 'TX9997888',
-            'amount' => '14.65',
-            'currency' => 'EUR'
-        ));
+            'transactionId'    => 'TX9997888',
+            'amount'           => '14.65',
+            'currency'         => 'EUR',
+        ]);
     }
 
     public function testGetData()
@@ -68,5 +69,4 @@ class ValidatePayoutRequestTest extends TestCase
         $response = $this->request->sendData($data);
         $this->assertSame('Omnipay\Paysafecard\Message\ValidatePayoutResponse', get_class($response));
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\Paysafecard;
 
 use Omnipay\Tests\GatewayTestCase;
@@ -25,20 +26,20 @@ class GatewayTest extends GatewayTestCase
 
     public function testPurchase()
     {
-        $request = $this->gateway->purchase(array(
-            'subId' => 'shop1',
-            'shopId' => '2568-B415rh_785',
-            'shopLabel' => 'www.foodstore.com',
-            'countryRestrictions' => array('FR', 'ES'),
-            'minAgeRestriction' => 18,
+        $request = $this->gateway->purchase([
+            'subId'                  => 'shop1',
+            'shopId'                 => '2568-B415rh_785',
+            'shopLabel'              => 'www.foodstore.com',
+            'countryRestrictions'    => ['FR', 'ES'],
+            'minAgeRestriction'      => 18,
             'minKycLevelRestriction' => 'SIMPLE',
-            'language' => 'de',
-            'locale' => 'de_de',
-            'clientMerchantId' => 'client123',
-            'transactionId' => 'TX9997888',
-            'amount' => '14.65',
-            'currency' => 'EUR'
-        ));
+            'language'               => 'de',
+            'locale'                 => 'de_de',
+            'clientMerchantId'       => 'client123',
+            'transactionId'          => 'TX9997888',
+            'amount'                 => '14.65',
+            'currency'               => 'EUR',
+        ]);
 
         $this->assertSame('https://soatest.paysafecard.com/psc/services/PscService', $request->getEndpoint());
         $this->assertSame('shop1', $request->getSubId());
@@ -58,12 +59,12 @@ class GatewayTest extends GatewayTestCase
 
     public function testCompletePurchase()
     {
-        $request = $this->gateway->completePurchase(array(
-            'subId' => 'shop1',
+        $request = $this->gateway->completePurchase([
+            'subId'         => 'shop1',
             'transactionId' => 'TX8889777',
-            'amount' => '12.43',
-            'currency' => 'EUR'
-        ));
+            'amount'        => '12.43',
+            'currency'      => 'EUR',
+        ]);
 
         $this->assertSame('https://soatest.paysafecard.com/psc/services/PscService', $request->getEndpoint());
         $this->assertSame('shop1', $request->getSubId());
@@ -74,18 +75,18 @@ class GatewayTest extends GatewayTestCase
 
     public function testPayout()
     {
-        $request = $this->gateway->payout(array(
-            'subId' => 'shop1',
-            'email' => 'user@example.com',
-            'firstName' => 'John',
-            'lastName' => 'Doe',
-            'birthday' => '30.12.1976',
-            'utcOffset' => '+02:00',
+        $request = $this->gateway->payout([
+            'subId'            => 'shop1',
+            'email'            => 'user@example.com',
+            'firstName'        => 'John',
+            'lastName'         => 'Doe',
+            'birthday'         => '30.12.1976',
+            'utcOffset'        => '+02:00',
             'clientMerchantId' => 'client123',
-            'transactionId' => 'TX9997888',
-            'amount' => '14.65',
-            'currency' => 'EUR'
-        ));
+            'transactionId'    => 'TX9997888',
+            'amount'           => '14.65',
+            'currency'         => 'EUR',
+        ]);
 
         $this->assertSame('https://soatest.paysafecard.com/psc/services/PscService', $request->getEndpoint());
         $this->assertSame('shop1', $request->getSubId());
@@ -102,18 +103,18 @@ class GatewayTest extends GatewayTestCase
 
     public function testValidatePayout()
     {
-        $request = $this->gateway->validatePayout(array(
-            'subId' => 'shop1',
-            'email' => 'user@example.com',
-            'firstName' => 'John',
-            'lastName' => 'Doe',
-            'birthday' => '30.12.1976',
-            'utcOffset' => '+02:00',
+        $request = $this->gateway->validatePayout([
+            'subId'            => 'shop1',
+            'email'            => 'user@example.com',
+            'firstName'        => 'John',
+            'lastName'         => 'Doe',
+            'birthday'         => '30.12.1976',
+            'utcOffset'        => '+02:00',
             'clientMerchantId' => 'client123',
-            'transactionId' => 'TX9997888',
-            'amount' => '14.65',
-            'currency' => 'EUR'
-        ));
+            'transactionId'    => 'TX9997888',
+            'amount'           => '14.65',
+            'currency'         => 'EUR',
+        ]);
 
         $this->assertSame('https://soatest.paysafecard.com/psc/services/PscService', $request->getEndpoint());
         $this->assertSame('shop1', $request->getSubId());
@@ -130,11 +131,11 @@ class GatewayTest extends GatewayTestCase
 
     public function testFetchTransaction()
     {
-        $request = $this->gateway->fetchTransaction(array(
+        $request = $this->gateway->fetchTransaction([
             'transactionId' => 'TX8889777',
-            'amount' => '12.43',
-            'currency' => 'EUR'
-        ));
+            'amount'        => '12.43',
+            'currency'      => 'EUR',
+        ]);
 
         $this->assertSame('https://soatest.paysafecard.com/psc/services/PscService', $request->getEndpoint());
         $this->assertSame('TX8889777', $request->getTransactionId());

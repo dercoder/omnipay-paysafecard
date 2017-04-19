@@ -324,9 +324,9 @@ class PayoutRequest extends AbstractRequest
      *
      * @param \SimpleXMLElement $xml
      *
-     * @return PayoutResponse
-     *
      * @throws InvalidResponseException
+     *
+     * @return PayoutResponse
      */
     protected function createResponse(\SimpleXMLElement $xml)
     {

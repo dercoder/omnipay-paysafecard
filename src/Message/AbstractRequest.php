@@ -134,10 +134,10 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function sendData($data)
     {
         $endpoint = $this->getEndpoint();
-        $headers = array(
+        $headers = [
             'Content-Type' => 'text/xml; charset=utf-8',
-            'SOAPAction' => $endpoint.'/'.$this->getMethod(),
-        );
+            'SOAPAction'   => $endpoint.'/'.$this->getMethod(),
+        ];
 
         $httpResponse = $this->httpClient->post($endpoint, $headers, $data)->send();
 

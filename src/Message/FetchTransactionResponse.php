@@ -2,8 +2,8 @@
 
 namespace Omnipay\Paysafecard\Message;
 
-use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Exception\InvalidResponseException;
+use Omnipay\Common\Message\RequestInterface;
 
 /**
  * Paysafecard Fetch Transaction Response.
@@ -16,14 +16,14 @@ use Omnipay\Common\Exception\InvalidResponseException;
  */
 class FetchTransactionResponse extends AbstractResponse
 {
-    private $messages = array(
+    private $messages = [
         'O' => 'Consumed',
         'R' => 'Created',
         'S' => 'Disposed',
         'L' => 'Cancelled',
         'X' => 'Expired',
         'D' => 'Debited',
-    );
+    ];
 
     public function __construct(RequestInterface $request, \SimpleXMLElement $data)
     {
@@ -60,8 +60,6 @@ class FetchTransactionResponse extends AbstractResponse
         if ($state && isset($this->messages[$state])) {
             return $this->messages[$state];
         }
-
-        return;
     }
 
     public function getTransactionId()

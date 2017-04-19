@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\Paysafecard\Message;
 
 use Omnipay\Tests\TestCase;
@@ -20,13 +21,13 @@ class FetchTransactionRequestTest extends TestCase
         $httpClient->addSubscriber($mockPlugin);
 
         $this->request = new FetchTransactionRequest($httpClient, $this->getHttpRequest());
-        $this->request->initialize(array(
-            'username' => 'SOAP_USERNAME',
-            'password' => 'oJ2rHLBVSbD5iGfT',
-            'subId' => 'shop1',
+        $this->request->initialize([
+            'username'      => 'SOAP_USERNAME',
+            'password'      => 'oJ2rHLBVSbD5iGfT',
+            'subId'         => 'shop1',
             'transactionId' => 'TX9997888',
-            'currency' => 'EUR'
-        ));
+            'currency'      => 'EUR',
+        ]);
     }
 
     public function testGetData()

@@ -114,15 +114,15 @@ class CompletePurchaseRequest extends AbstractRequest
     {
         $fetchTransaction = new FetchTransactionRequest($this->httpClient, $this->httpRequest);
 
-        $response = $fetchTransaction->initialize(array(
-            'testMode' => $this->getTestMode(),
-            'username' => $this->getUsername(),
-            'password' => $this->getPassword(),
-            'subId' => $this->getSubId(),
+        $response = $fetchTransaction->initialize([
+            'testMode'      => $this->getTestMode(),
+            'username'      => $this->getUsername(),
+            'password'      => $this->getPassword(),
+            'subId'         => $this->getSubId(),
             'transactionId' => $this->getTransactionId(),
-            'currency' => $this->getCurrency(),
-            'amount' => $this->getAmount(),
-        ))->send();
+            'currency'      => $this->getCurrency(),
+            'amount'        => $this->getAmount(),
+        ])->send();
 
         if ($response->getDispositionState() !== 'S') {
             return $response;
@@ -136,9 +136,9 @@ class CompletePurchaseRequest extends AbstractRequest
      *
      * @param \SimpleXMLElement $xml
      *
-     * @return PurchaseResponse
-     *
      * @throws InvalidResponseException
+     *
+     * @return PurchaseResponse
      */
     protected function createResponse(\SimpleXMLElement $xml)
     {
